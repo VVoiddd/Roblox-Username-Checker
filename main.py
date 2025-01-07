@@ -3,10 +3,11 @@ from colorama import Fore, Style
 import os
 import random
 import string
+import sys
+import time
 
 # Username generation function
 def generate_username(min_length=4, max_length=15):
-    # Define the characters to be used in the username
     characters = string.ascii_letters + string.digits
     username_length = random.randint(min_length, max_length)
     username = ''.join(random.choice(characters) for _ in range(username_length))
@@ -39,20 +40,42 @@ def save_valid_username(username):
 def show_developer_info():
     print(f"\n{Fore.CYAN}Thank you to jprocks101 for the base idea and concept!{Style.RESET_ALL}")
     print(f"{Fore.CYAN}This script was expanded and improved by Void with additional features such as random username generation, improved handling, and better user interface.{Style.RESET_ALL}")
+    print(f"{Fore.GREEN}This is a forked version of 1.0, with significant changes and improvements leading to the release of 2.0.{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}Old Version (1.0): https://github.com/jprocks101/Roblox-Username-Checker{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}New Version (2.0): https://github.com/VVoiddd/Roblox-Username-Checker{Style.RESET_ALL}")
     print(f"{Fore.MAGENTA}Follow Void at: https://www.twitch.tv/voidedluvr{Style.RESET_ALL}")
     print(f"{Fore.MAGENTA}Check out Void's other projects at: https://github.com/VoidedLuvr{Style.RESET_ALL}")
     print("\n")
     input(f"{Fore.MAGENTA}[{Fore.RESET}Press Enter to return to the menu{Fore.MAGENTA}]{Fore.RESET}")  # Wait for user to press Enter
 
+
+# Progress bar function
+def update_progress_bar(iteration, total, bar_length=50):
+    progress = (iteration / total)
+    arrow = '=' * int(round(progress * bar_length) - 1)
+    spaces = ' ' * (bar_length - len(arrow))
+    sys.stdout.write(f"\r[{arrow}{spaces}] {int(progress * 100)}%")
+    sys.stdout.flush()
+
+# Remove duplicates from list
+def remove_duplicates(usernames):
+    seen = set()
+    unique_usernames = []
+    for username in usernames:
+        if username not in seen:
+            unique_usernames.append(username)
+            seen.add(username)
+    return unique_usernames
+
 # Main function to handle user choices
 while True:
     print()
     os.system('cls' if os.name == 'nt' else 'clear')  # Clear console
-    print(f"{Fore.BLUE}██   ██  ██████ ██   ██ ███████  ██████ ██   ██ ███████ ██████  ")
-    print(f" ██ ██  ██      ██   ██ ██      ██      ██  ██  ██      ██   ██ ")
-    print(f"  ███   ██      ███████ █████   ██      █████   █████   ██████  ")
-    print(f" ██ ██  ██      ██   ██ ██      ██      ██  ██  ██      ██   ██ ")
-    print(f"██   ██  ██████ ██   ██ ███████  ██████ ██   ██ ███████ ██   ██ {Style.RESET_ALL}")
+    print(f"{Fore.BLUE}██   ██  ██████ ██   ██ ███████  ██████ ██   ██ ███████ ██████      ██    ██     ██████      ██████  ")
+    print(f" ██ ██  ██      ██   ██ ██      ██      ██  ██  ██      ██   ██     ██    ██          ██    ██  ████ ")
+    print(f"  ███   ██      ███████ █████   ██      █████   █████   ██████      ██    ██      █████     ██ ██ ██ ")
+    print(f" ██ ██  ██      ██   ██ ██      ██      ██  ██  ██      ██   ██      ██  ██      ██         ████  ██ ")
+    print(f"██   ██  ██████ ██   ██ ███████  ██████ ██   ██ ███████ ██   ██       ████       ███████ ██  ██████  {Style.RESET_ALL}")
     print()
     print(f"{Fore.MAGENTA}[{Fore.RESET}+{Fore.MAGENTA}]{Fore.RESET} Choose an option:")
     print(f"{Fore.MAGENTA}[{Fore.RESET}1{Fore.MAGENTA}]{Fore.RESET} Manually enter a username")
@@ -68,25 +91,51 @@ while True:
         print(result)
     elif choice == '2':
         filename = input(f"{Fore.MAGENTA}[{Fore.RESET}+{Fore.MAGENTA}]{Fore.RESET} Enter the filename of the usernames file (must include .txt): ")
+        
+        # Read usernames from file and show loading progress
         with open(filename, "r") as file:
             usernames = file.read().splitlines()
-        for username in usernames:
+        
+        print(f"{Fore.CYAN}Done! {len(usernames)} Amount of Usernames Loaded{Style.RESET_ALL}")
+
+        # Check for duplicates
+        duplicate_usernames = [username for username in usernames if usernames.count(username) > 1]
+        if duplicate_usernames:
+            print(f"{Fore.YELLOW}Oh No! We've Detected Duped Usernames! Would You Like the Application To Remove Them? (y/n){Style.RESET_ALL}")
+            user_response = input(f"{Fore.MAGENTA}[{Fore.RESET}>{Fore.MAGENTA}]{Fore.RESET} ")
+            if user_response.lower() == 'y':
+                usernames = remove_duplicates(usernames)
+                print(f"{Fore.GREEN}Duplicates have been removed.{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}Dupes were not removed.{Style.RESET_ALL}")
+        
+        valid_usernames = 0
+        invalid_usernames = 0
+
+        # Validate usernames and update progress bar
+        for i, username in enumerate(usernames):
             result = validate_username(username)
-            print(result)
+            print(f"\r{result}", end="")
+            if "Valid" in result:
+                valid_usernames += 1
+                save_valid_username(username)  # Save valid usernames to the file
+            else:
+                invalid_usernames += 1
+            update_progress_bar(i + 1, len(usernames))  # Update the progress bar
+            time.sleep(0.1)  # Optional delay for demonstration
+
+        print(f"\n{Fore.GREEN}Valid Usernames: {valid_usernames}{Style.RESET_ALL}")
+        print(f"{Fore.RED}Invalid Usernames: {invalid_usernames}{Style.RESET_ALL}")
+    
     elif choice == '3':
-        # Ask user for the length of the username
         min_len = int(input(f"{Fore.MAGENTA}[{Fore.RESET}+{Fore.MAGENTA}]{Fore.RESET} Enter the minimum length for the username (4-15): "))
         max_len = int(input(f"{Fore.MAGENTA}[{Fore.RESET}+{Fore.MAGENTA}]{Fore.RESET} Enter the maximum length for the username (4-15): "))
 
         if 4 <= min_len <= 15 and 4 <= max_len <= 15 and min_len <= max_len:
-            # Ask for how many usernames to generate
             num_usernames = int(input(f"{Fore.MAGENTA}[{Fore.RESET}+{Fore.MAGENTA}]{Fore.RESET} How many usernames would you like to generate? "))
-
-            # Variables to track username lists
             valid_usernames = []
             invalid_usernames = []
 
-            # Loop to generate usernames
             for _ in range(num_usernames):
                 generated_username = generate_username(min_len, max_len)
                 print(f"{Fore.CYAN}Generated Username: {generated_username}{Style.RESET_ALL}")
@@ -94,14 +143,12 @@ while True:
                 result = validate_username(generated_username)
                 print(result)
 
-                # Categorize usernames
                 if "Valid" in result:
                     valid_usernames.append(generated_username)
-                    save_valid_username(generated_username)  # Save valid usernames to the file
+                    save_valid_username(generated_username)
                 else:
                     invalid_usernames.append(generated_username)
 
-            # Display the status summary after all generations
             print(f"\n{Fore.GREEN}Usernames Generated: {num_usernames}{Style.RESET_ALL}")
             print(f"{Fore.GREEN}Valid Usernames: {len(valid_usernames)}{Style.RESET_ALL}")
             print(f"{Fore.RED}Invalid Usernames: {len(invalid_usernames)}{Style.RESET_ALL}")
