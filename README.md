@@ -12,4 +12,8 @@
 - **Base idea by jprocks101**: This script was created as a base project by jprocks101. Thank you for the inspiration!
 - **Expanded by Void**: Void has added several new features, including random username generation, improved handling, and a more user-friendly interface.
 
+### Version Info:
+- **Old Version (1.0)**: [https://github.com/jprocks101/Roblox-Username-Checker](https://github.com/jprocks101/Roblox-Username-Checker)
+- **New Version (2.0)**: [https://github.com/VVoiddd/Roblox-Username-Checker](https://github.com/VVoiddd/Roblox-Username-Checker)
+
 💻 Happy checking!
