@@ -8,10 +8,8 @@
 
 🚀 This project uses the requests library to make HTTP requests, the colorama library for colored output, and the built-in os library to clear the console.
 
-👨‍💻 Feel free to use and modify the script according to your needs. Contributions and feedback are always welcome!
+### Developer Credits:
+- **Base idea by jprocks101**: This script was created as a base project by jprocks101. Thank you for the inspiration!
+- **Expanded by Void**: Void has added several new features, including random username generation, improved handling, and a more user-friendly interface.
 
 💻 Happy checking!
-
-Preview:
-![image222222](https://user-images.githubusercontent.com/76234278/232608078-ab222e80-c8f7-4fc1-9632-b402648b3128.png)
-
