@@ -6,12 +6,25 @@ import string
 import sys
 import time
 
+# Read example usernames from file
+def read_example_usernames(file_path="examplenames.txt"):
+    with open(file_path, "r") as file:
+        return file.read().splitlines()
+
 # Username generation function
 def generate_username(min_length=4, max_length=15):
     characters = string.ascii_letters + string.digits
     username_length = random.randint(min_length, max_length)
     username = ''.join(random.choice(characters) for _ in range(username_length))
     return username
+
+# Generate a random username by mashing together examples
+def generate_mashed_username(usernames, min_length=4, max_length=15):
+    random.shuffle(usernames)
+    mashed_username = ''.join(usernames[:2])  # Combine two usernames
+    mashed_username = mashed_username[:max_length]  # Ensure max length
+    mashed_username = mashed_username.replace(' ', '')  # Remove spaces
+    return mashed_username
 
 # Validate a single username using the Roblox API
 def validate_username(username):
@@ -48,7 +61,6 @@ def show_developer_info():
     print("\n")
     input(f"{Fore.MAGENTA}[{Fore.RESET}Press Enter to return to the menu{Fore.MAGENTA}]{Fore.RESET}")  # Wait for user to press Enter
 
-
 # Progress bar function
 def update_progress_bar(iteration, total, bar_length=50):
     progress = (iteration / total)
@@ -76,12 +88,14 @@ while True:
     print(f"  ███   ██      ███████ █████   ██      █████   █████   ██████      ██    ██      █████     ██ ██ ██ ")
     print(f" ██ ██  ██      ██   ██ ██      ██      ██  ██  ██      ██   ██      ██  ██      ██         ████  ██ ")
     print(f"██   ██  ██████ ██   ██ ███████  ██████ ██   ██ ███████ ██   ██       ████       ███████ ██  ██████  {Style.RESET_ALL}")
-    print()
+    print(f"{Fore.MAGENTA}                    Developed   By   jprocks101   and   Upgraded   By   Void {Style.RESET_ALL}\n")
+    
     print(f"{Fore.MAGENTA}[{Fore.RESET}+{Fore.MAGENTA}]{Fore.RESET} Choose an option:")
     print(f"{Fore.MAGENTA}[{Fore.RESET}1{Fore.MAGENTA}]{Fore.RESET} Manually enter a username")
     print(f"{Fore.MAGENTA}[{Fore.RESET}2{Fore.MAGENTA}]{Fore.RESET} Check a list of usernames from a file")
     print(f"{Fore.MAGENTA}[{Fore.RESET}3{Fore.MAGENTA}]{Fore.RESET} Generate random usernames")
-    print(f"{Fore.MAGENTA}[{Fore.RESET}4{Fore.MAGENTA}]{Fore.RESET} Developer Info")
+    print(f"{Fore.MAGENTA}[{Fore.RESET}4{Fore.MAGENTA}]{Fore.RESET} Generate mashed-up username from examples")
+    print(f"{Fore.MAGENTA}[{Fore.RESET}5{Fore.MAGENTA}]{Fore.RESET} Developer Info")
     print(f"{Fore.MAGENTA}[{Fore.RESET}0{Fore.MAGENTA}]{Fore.RESET} Exit")
     choice = input(f"{Fore.MAGENTA}[{Fore.RESET}>{Fore.MAGENTA}]{Fore.RESET} ")
 
@@ -157,7 +171,21 @@ while True:
 
         else:
             print(f"{Fore.RED}Invalid length. Please enter values between 4 and 15 for both min and max length.{Style.RESET_ALL}")
+    
     elif choice == '4':
+        # Load example usernames and show progress bar
+        usernames = read_example_usernames()
+        print(f"{Fore.CYAN}Loaded {len(usernames)} example usernames!{Style.RESET_ALL}")
+        num_usernames = int(input(f"{Fore.MAGENTA}[{Fore.RESET}+{Fore.MAGENTA}]{Fore.RESET} How many mashed-up usernames would you like to generate? "))
+        
+        print(f"\n{Fore.CYAN}Generating mashed-up usernames...{Style.RESET_ALL}")
+        for i in range(num_usernames):
+            mashed_username = generate_mashed_username(usernames)
+            result = validate_username(mashed_username)
+            print(f"{Fore.CYAN}Mashed-up Username: {mashed_username} - {result}{Style.RESET_ALL}")
+            time.sleep(0.5)  # Optional delay for visual effect
+            
+    elif choice == '5':
         show_developer_info()
     elif choice == '0':
         break
