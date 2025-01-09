@@ -2,21 +2,74 @@
 
 👋 Welcome to Roblox Username Validator, a Python script that validates the availability and appropriateness of Roblox usernames.
 
-🔍 Use the script to manually check a single username or a list of usernames from a file. The script communicates with the Roblox API to determine if a username is valid and available or not.
+---
 
-✅ Valid usernames are saved in a valid.txt file, while invalid ones are displayed in the console with a message explaining the issue.
+## 🔍 Features:
+- **Manual Checks**: Enter a single username to check its validity and availability.
+- **Batch Checks**: Validate a list of usernames from a `.txt` file.
+- **Random Username Generation**: Generate random usernames to check availability.
+- **Duplicate Removal**: Automatically removes duplicate usernames from input files.
+- **Colored Output**: Get clear results with colored messages using `colorama`.
 
-🚀 This project uses the requests library to make HTTP requests, the colorama library for colored output, and the built-in os library to clear the console.
+---
 
-### Screenshot:
+## ✅ Output:
+- **Valid Usernames**: Saved to `valid.txt`.
+- **Invalid Usernames**: Displayed in the console with specific error reasons.
+
+---
+
+## 🚀 Requirements:
+- Python 3.x
+- Libraries: `requests`, `colorama`
+
+---
+
+## 🛠 Setup:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/VVoiddd/Roblox-Username-Checker.git
+   cd Roblox-Username-Checker
+   ```
+2. Install the required libraries:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the script:
+   ```bash
+   python main.py
+   ```
+
+---
+
+## 🎥 Demo:
+Check out the video walkthrough below to see how to use the Roblox Username Checker in action!
+
+[![Watch the Demo](https://img.youtube.com/vi/xWfc6wkExKs/0.jpg)](https://youtu.be/xWfc6wkExKs)
+
+---
+
+## 📸 Screenshot:
 ![New Version Screenshot](release.png)
 
-### Developer Credits:
-- **Base idea by jprocks101**: This script was created as a base project by jprocks101. Thank you for the inspiration!
-- **Expanded by Void**: Void has added several new features, including random username generation, improved handling, and a more user-friendly interface.
+---
 
-### Version Info:
+## 🧑‍💻 Developer Credits:
+- **Base idea by jprocks101**: This project was initially conceptualized by jprocks101. A big thank you for laying the groundwork!
+- **Expanded by Void**: Enhancements and new features were added by Void, making it more versatile and user-friendly.
+
+---
+
+## 🔗 Version Info:
 - **Old Version (1.0)**: [https://github.com/jprocks101/Roblox-Username-Checker](https://github.com/jprocks101/Roblox-Username-Checker)
 - **New Version (2.0)**: [https://github.com/VVoiddd/Roblox-Username-Checker](https://github.com/VVoiddd/Roblox-Username-Checker)
 
-💻 Happy checking!
+💻 Happy Checking!
+```
+
+This updated `README.md` includes:
+- A YouTube video link embedded as a demo for users to view.
+- Organized and structured sections for readability.
+- Markdown enhancements like clickable links, images, and instructions in code blocks.
+
+Let me know if you'd like further refinements! 😊
