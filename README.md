@@ -66,10 +66,3 @@ Check out the video walkthrough below to see how to use the Roblox Username Chec
 
 💻 Happy Checking!
 ```
-
-This updated `README.md` includes:
-- A YouTube video link embedded as a demo for users to view.
-- Organized and structured sections for readability.
-- Markdown enhancements like clickable links, images, and instructions in code blocks.
-
-Let me know if you'd like further refinements! 😊
